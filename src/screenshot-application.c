@@ -368,6 +368,17 @@ screenshot_save_to_file (ScreenshotApplication *self)
                            NULL,
                            save_file_create_ready_cb, self);
     }
+    printf("\n%s\n",self->save_uri);
+    char *gimp="gimp ";
+    char *gimp_arg=(char *)self->save_uri;
+    char *cmd;
+    cmd=(char*)malloc(strlen(gimp)+strlen(gimp_arg)+1);
+    cmd[0]='\0';
+    strcat(cmd,gimp);
+    strcat(cmd,gimp_arg);
+    strcat(cmd," &");
+    printf("\n%d,%s\n",strlen(cmd),cmd);
+    system(cmd);
 }
 
 static void
