@@ -369,7 +369,7 @@ screenshot_save_to_file (ScreenshotApplication *self)
                            save_file_create_ready_cb, self);
     }
     printf("\n%s\n",self->save_uri);
-    char *gimp="gimp ";
+    char *gimp="gimp -a ";
     char *gimp_arg=(char *)self->save_uri;
     char *cmd;
     cmd=(char*)malloc(strlen(gimp)+strlen(gimp_arg)+1);
@@ -378,7 +378,10 @@ screenshot_save_to_file (ScreenshotApplication *self)
     strcat(cmd,gimp_arg);
     strcat(cmd," &");
     printf("\n%d,%s\n",strlen(cmd),cmd);
-    system(cmd);
+    int res=system(cmd);
+    if(res == -1){
+        printf("调用 GIMP 失败");
+    }
 }
 
 static void
